@@ -1,0 +1,22 @@
+.input {
+  width: 400px;
+  height: 50px;
+}
+.input.full {
+  width: 400px;
+}
+
+.input.half {
+  width: 200px;
+}
+
+.input input {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  padding: 0px 20px;
+  font-size: 20px;
+  transform: skewX(-20deg);
+  border: none;
+  outline: none;
+}

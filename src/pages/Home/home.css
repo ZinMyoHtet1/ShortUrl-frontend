@@ -1,0 +1,33 @@
+.title {
+  font-size: 50px;
+  padding: 30px 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 14px;
+}
+
+.form-control {
+  display: flex;
+  gap: 20px;
+  text-align: center;
+}
+
+.form-control label {
+  font-size: 30px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-message {
+  color: rgb(6, 119, 6);
+}
+
+.error-message {
+  color: rgb(250, 30, 30);
+}
