@@ -1,4 +1,9 @@
-import { CREATE_SHORTURL, START_LOADING, STOP_LOADING } from "../constants";
+import {
+  CREATE_SHORTURL,
+  CREATE_TEMP_USERID,
+  START_LOADING,
+  STOP_LOADING,
+} from "../constants";
 
 const initialState = {
   isLoading: false,
@@ -10,6 +15,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case CREATE_SHORTURL:
+      console.log("successful", action.payload);
       if (action.payload.status === "success") {
         return {
           ...state,
@@ -23,6 +29,9 @@ export default (state = initialState, action) => {
         message: action.payload.message,
         isError: true,
       };
+    case CREATE_TEMP_USERID:
+      localStorage.setItem("userID", action.payload.tempToken);
+      return state;
     case START_LOADING:
       return {
         ...initialState,
