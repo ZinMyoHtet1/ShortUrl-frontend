@@ -3,6 +3,7 @@ import { Button, Input } from "../../components";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import shortUrlActions from "../../actions/ShortUrl.actions.js";
+import { RecentContainer } from "../../containers/index.js";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -83,6 +84,7 @@ const Home = () => {
         </div>
       ) : null}
       {isError ? <div className="error-message">{message}</div> : null}
+      <RecentContainer />
     </>
   );
 };
