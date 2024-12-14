@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import shortUrlActions from "../../actions/ShortUrl.actions.js";
 
 const Home = () => {
-  const [userID, setUserID] = useState("");
   const dispatch = useDispatch();
   const { isLoading, url, isError, message } = useSelector(
     (state) => state.shortUrl
@@ -16,13 +15,12 @@ const Home = () => {
     joiner: "",
   });
 
-  console.log(initialValues);
   useEffect(() => {
     if (url && !isError) setInitialValues({ url: "", joiner: "" });
   }, [isError, url]);
 
   useEffect(() => {
-    setUserID(localStorage.getItem("userID"));
+    const userID = localStorage.getItem("userID");
     if (!userID) dispatch(shortUrlActions.createTempUserID());
     // setInitialValues((prev) => {
     //   return {
@@ -30,11 +28,16 @@ const Home = () => {
     //     userID: userID,
     //   };
     // });
-  }, [dispatch, userID]);
+  }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(shortUrlActions.createShortUrl({ ...initialValues, userID }));
+    dispatch(
+      shortUrlActions.createShortUrl({
+        ...initialValues,
+        userID: localStorage.getItem("userID"),
+      })
+    );
   };
 
   const handleChange = (e) => {
