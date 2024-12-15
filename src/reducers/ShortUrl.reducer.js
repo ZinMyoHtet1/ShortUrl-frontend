@@ -1,6 +1,7 @@
 import {
   CREATE_SHORTURL,
   CREATE_TEMP_USERID,
+  FETCH_BY_USERID,
   START_LOADING,
   STOP_LOADING,
 } from "../constants";
@@ -10,12 +11,12 @@ const initialState = {
   url: "",
   isError: false,
   message: "",
+  recents: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case CREATE_SHORTURL:
-      console.log("successful", action.payload);
       if (action.payload.status === "success") {
         return {
           ...state,
@@ -32,9 +33,15 @@ export default (state = initialState, action) => {
     case CREATE_TEMP_USERID:
       localStorage.setItem("userID", action.payload.tempToken);
       return state;
+
+    case FETCH_BY_USERID:
+      return {
+        ...state,
+        recents: action.payload.data,
+      };
     case START_LOADING:
       return {
-        ...initialState,
+        ...state,
         isLoading: true,
       };
     case STOP_LOADING:

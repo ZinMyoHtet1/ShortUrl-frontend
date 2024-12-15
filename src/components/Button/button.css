@@ -1,14 +1,15 @@
 .btn {
   width: 150px;
   height: 40px;
-  border-radius: 15px;
-  transform: skewX(-20deg);
+  border-radius: 10px;
+  /* transform: skewX(-20deg); */
   font-size: 20px;
   background-color: blue;
   color: #fff;
   font-weight: 400;
   outline: none;
   border: none;
+  /* align-self: flex-end; */
 }
 
 .btn.isSubmitting {

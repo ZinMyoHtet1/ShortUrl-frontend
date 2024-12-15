@@ -1,0 +1,13 @@
+.recent-url {
+  margin-bottom: 10px;
+}
+
+.recent-url .shortUrl {
+  font-size: 20px;
+  color: blueviolet;
+}
+
+.recent-url .rootUrl {
+  font-size: 16px;
+  color: #000;
+}

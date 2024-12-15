@@ -7,7 +7,7 @@ import { RecentContainer } from "../../containers/index.js";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { isLoading, url, isError, message } = useSelector(
+  const { isLoading, url, isError, message, recents } = useSelector(
     (state) => state.shortUrl
   );
 
@@ -16,20 +16,14 @@ const Home = () => {
     joiner: "",
   });
 
-  useEffect(() => {
-    if (url && !isError) setInitialValues({ url: "", joiner: "" });
-  }, [isError, url]);
+  const [sliceIndex, setSliceIndex] = useState(4);
 
   useEffect(() => {
     const userID = localStorage.getItem("userID");
+    if (url && !isError) setInitialValues({ url: "", joiner: "" });
     if (!userID) dispatch(shortUrlActions.createTempUserID());
-    // setInitialValues((prev) => {
-    //   return {
-    //     ...prev,
-    //     userID: userID,
-    //   };
-    // });
-  }, [dispatch]);
+    dispatch(shortUrlActions.fetchByUserID(userID));
+  }, [dispatch, isError, url]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,20 +44,28 @@ const Home = () => {
     });
   };
 
+  const handleLoadMore = () => {
+    setSliceIndex((prev) => {
+      return prev + 4;
+    });
+  };
+
   return (
     <>
       <h1 className="title">Transform And Shorten Your URL</h1>
       <form action="/" method="POST" onSubmit={handleSubmit}>
         <div className="url form-control">
+          <label htmlFor="url">Url</label>
           <Input
             placeholder="enter your link"
             name="url"
             value={initialValues.url}
             handleChange={handleChange}
           />
-          <label htmlFor="url">Url</label>
         </div>
         <div className="joiner form-control">
+          <label htmlFor="joiner">Joiner</label>
+
           <Input
             placeholder="enter something"
             size="half"
@@ -71,20 +73,29 @@ const Home = () => {
             value={initialValues.joiner}
             handleChange={handleChange}
           />
-          <label htmlFor="joiner">Joiner</label>
         </div>
-        <Button label="Create" isSubmitting={isLoading} />
+        <div className="button-container">
+          {!isError && url ? (
+            <span className="success-message">{message + " "}</span>
+          ) : (
+            <div className="error-message">{message}</div>
+          )}
+          <Button label="Create" isSubmitting={isLoading} />
+        </div>
       </form>
-      {!isError && url ? (
+      {/* {!isError && url ? (
         <div className="url-container">
           <span className="success-message">{message + " "}</span>
           <a href={url} target="_blank">
             {url}
           </a>
         </div>
+      ) : null} */}
+      {/* {isError ? <div className="error-message">{message}</div> : null} */}
+      <RecentContainer recents={recents.slice(0, sliceIndex)} />
+      {recents.length > sliceIndex ? (
+        <button onClick={handleLoadMore}>Load MOre</button>
       ) : null}
-      {isError ? <div className="error-message">{message}</div> : null}
-      <RecentContainer />
     </>
   );
 };

@@ -1,5 +1,5 @@
 {
-  "proxy": "https://shorturlbyjys.onrender.com",
+  "proxy": "http://localhost:3000",
   "name": "shorturl",
   "private": true,
   "version": "0.0.0",
