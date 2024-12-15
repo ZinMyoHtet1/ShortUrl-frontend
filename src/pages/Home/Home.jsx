@@ -92,7 +92,9 @@ const Home = () => {
         </div>
       ) : null} */}
       {/* {isError ? <div className="error-message">{message}</div> : null} */}
-      <RecentContainer recents={recents.slice(0, sliceIndex)} />
+      {recents.length ? (
+        <RecentContainer recents={recents.slice(0, sliceIndex)} />
+      ) : null}
       {recents.length > sliceIndex ? (
         <button onClick={handleLoadMore}>Load MOre</button>
       ) : null}
